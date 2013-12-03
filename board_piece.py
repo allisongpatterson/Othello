@@ -25,7 +25,7 @@ class Board(object):
     def place_piece_at(self, piece, x, y):
         self.board[x, y] = piece
 
-
+     def look_right(self, x, y):
 
 
 b = Board()
