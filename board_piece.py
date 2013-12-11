@@ -25,46 +25,48 @@ class Board(object):
         self.place_piece_at(Piece('B'), 4, 4)
 
     def __str__(self):
-        for self.board[1] in range(8):
-            for 
-        #for coordinates in self.board:
-            #for x in coordinates:
-                #for x in range(8):
-                    #if x == 1
-        return str(self.board.values())
+        for self.board[0] in range(8):
+            for self.board[1] in range(8):
+                return str(list(sorted(self.board.values())))
+
 
     def place_piece_at(self, piece, x, y):
         self.board[x,y] = piece
 
 
 
-# class Gameplay(object):
-#     '''Defines legal movements for pieces'''
+class Gameplay(object):
+    '''Defines legal movements for pieces'''
 
-#     def __init__(self,piece,board,player):
-#         self.piece = piece
-#         self.board = board
-#         self.player = player
+    def __init__(self,player,space):
+        #self.board = board
+        self.player = player
+        self.space = space
 
-#     def diag_pos(self,player,space,board):
-#         '''checks diagonal up'''
-#         if self.player == 'B':
-#             oppcolor = 'W'
-#         else:
-#             oppcolor = 'B'
-#         for i in range(1,8):
-#             self.diag_pos = (space[1]+i,space[2]+i)
-#             if board[self.diag_pos] == 'E':
-#                 break
-#             if board[self.diag_pos] == oppcolor:
-                
-#             if board[self.diag_pos] == self.player:
-#                 flip
+    def __str__(self):
+        return str(board)
 
-#     def empty_space(self,space):
-#         if self.board[space[1],space[2]] == 'E':
-#         else:
-#             return 'Sorry, that is not a valid move! Please select an empty space.'
+    def diag_pos(self,player,space,board):
+        '''checks diagonal up'''
+        if self.player == 'B':
+            oppcolor = 'W'
+        else:
+            oppcolor = 'B'
+        for i in range(1,8):
+            diag_pos = (self.space[1]+i,self.space[2]+i)
+            if self.board[diag_pos] == 'E':
+                break
+            if self.board[diag_pos] == oppcolor:
+                i+1
+            if self.board[diag_pos] == self.player:
+                if self.board[(self.space[1]+(i-1),self.space[2]+(i-1))] == oppcolor:
+                    flip()
+
+    def empty_space(self,space):
+        if self.board[space[1],space[2]] == 'E':
+            pass
+        else:
+            return 'Sorry, that is not a valid move! Please select an empty space.'
 
 
 if __name__ == "__main__":
@@ -73,10 +75,11 @@ if __name__ == "__main__":
     # test_piece.flip()
     # print test_piece
 
-    test_board = Board()
-    print test_board
+    # test_board = Board()
+    # print test_board
 
-
+    test_game = Gameplay('B', (3,2))
+    print test_game
 
 
 
