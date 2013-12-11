@@ -47,7 +47,7 @@ class Gameplay(object):
         return str(self.board)
 
     def diag_pos(self,player,space,board):
-        '''checks diagonal up'''
+        '''checks diagonal positive positive'''
         if self.player == 'B':
             oppcolor = 'W'
         else:
@@ -63,6 +63,8 @@ class Gameplay(object):
                 if self.board[(self.space[1]+(i-1),self.space[2]+(i-1))] == oppcolor:
                     if value == 'C':
                         value = self.player
+                else:
+                    break
         for value in self.board:
             if value == 'C':
                 value = oppcolor
