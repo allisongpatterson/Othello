@@ -38,13 +38,13 @@ class Board(object):
 class Gameplay(object):
     '''Defines legal movements for pieces'''
 
-    def __init__(self,player,space):
-        #self.board = board
-        self.player = player
+    def __init__(self,board,player,space):
+        self.board = Board()
+        self.player = Piece('B')
         self.space = space
 
     def __str__(self):
-        return str(board)
+        return str(self.board)
 
     def diag_pos(self,player,space,board):
         '''checks diagonal up'''
@@ -53,14 +53,21 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         for i in range(1,8):
-            diag_pos = (self.space[1]+i,self.space[2]+i)
-            if self.board[diag_pos] == 'E':
+            square1 = (self.space[1]+i,self.space[2]+i)
+            if self.board[square1] == 'E':
                 break
-            if self.board[diag_pos] == oppcolor:
+            if self.board[square1] == oppcolor:
+                self.board[square1] = 'C'
                 i+1
-            if self.board[diag_pos] == self.player:
+            if self.board[square1] == self.player:
                 if self.board[(self.space[1]+(i-1),self.space[2]+(i-1))] == oppcolor:
-                    flip()
+                    if value == 'C':
+                        value = self.player
+        for value in self.board:
+            if value == 'C':
+                value = oppcolor
+
+    
 
     def empty_space(self,space):
         if self.board[space[1],space[2]] == 'E':
@@ -78,7 +85,7 @@ if __name__ == "__main__":
     # test_board = Board()
     # print test_board
 
-    test_game = Gameplay('B', (3,2))
+    test_game = Gameplay(Board(),'B', (3,2))
     print test_game
 
 
