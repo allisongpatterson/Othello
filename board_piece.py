@@ -1,33 +1,20 @@
-class Piece(object):
-    def __init__(self, color):
-        self.color = color
-
-    def __str__(self):
-        return self.color
-
-    def flip(self):
-        if self.color == 'W':
-            self.color = 'B'
-        if self.color == 'B':
-            self.color = 'W'
-
 class Board(object):
     def __init__(self):
         self.board = {}
-        alpha = list('01234567')
         for i in range(8):
             for k in range (8):
-                coord = alpha[k]  + str(i)
+                coord = str(k)  + str(i)
                 self.board[tuple(coord)] = 'E'
-        self.place_piece_at(Piece('W'), 3, 4)
-        self.place_piece_at(Piece('B'), 3, 3)
-        self.place_piece_at(Piece('W'), 4, 3)
-        self.place_piece_at(Piece('B'), 4, 4)
+        self.place_piece_at('W', '3', '4')
+        self.place_piece_at('B', '3', '3')
+        self.place_piece_at('W', '4', '3')
+        self.place_piece_at('B', '4', '4')
+        self.place_piece_at('W', '5', '5')
 
     def __str__(self):
         for self.board[0] in range(8):
             for self.board[1] in range(8):
-                return str(list(sorted(self.board.values())))
+                return str(self.board)
 
 
     def place_piece_at(self, piece, x, y):
@@ -40,206 +27,203 @@ class Gameplay(object):
 
     def __init__(self,board,player,space):
         self.board = Board()
-        self.player = Piece('W')
+        self.player = 'W'
         self.space = space
 
 
-    def direct1(self,player,space,board):
+    def direct1(self,board,player,space):
         '''checks diagonal positive positive (northeast): x+1, y+1'''
+        grid = self.board
         if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]+i,self.space[2]+i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]+(i-1),self.space[2]+(i-1))] == oppcolor: #why i-1?
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
+        if grid[str(self.space[0]),str(self.space[1])] == 'E':
+            for i in range(1,8):
+                if grid[str(self.space[0]+i),str(self.space[1]+i)] == oppcolor:
+                    grid[str(self.space[0]+i),str(self.space[1]+i)] = 'C'
+                if grid[str(self.space[0]+i),str(self.space[1]+i)] == 'E':
+                    break #does break work that quits all loops and goes to for loop?
+                if grid[str(self.space[0]+i),str(self.space[1]+i)] == self.player: #why i-1?
+                    if grid[str(self.space[0]+(i-1)),str(self.space[1]+(i-1))] == 'C':
+                        if grid.value == 'C':
+                            value = self.player
+        for value in grid:
             if value == 'C':
                 value = oppcolor
 
 
-    def direct2(self,player,space,board):
-        '''checks directly above (north): x+0, y+1'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1],self.space[2]+i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1],self.space[2]+(i-1))] == oppcolor: #why i-1?
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor    
+    # def direct2(self,player,space,board):
+    #     '''checks directly above (north): x+0, y+1'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         if self.board[self.space] == 'E':
+    #             break
+    #         if self.board[self.space] == oppcolor:
+    #             self.board[self.space] = 'C'
+    #             i+1
+    #         if self.board[self.space] == self.player:
+    #             if self.board[(self.space[1],self.space[2]+(i-1))] == oppcolor: #why i-1?
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor    
 
 
-    def direct3(self,player,space,board):
-        '''checks diagonal negative positive (northwest): x-1, y+1'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]-i,self.space[2]+i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]-(i-1),self.space[2]+(i-1))] == oppcolor:
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor 
+    # def direct3(self,player,space,board):
+    #     '''checks diagonal negative positive (northwest): x-1, y+1'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1]-i,self.space[2]+i)
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1]-(i-1),self.space[2]+(i-1))] == oppcolor:
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor 
 
 
-    def direct4(self,player,space,board):
-        '''checks left (west): x-1, y+0'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]-i,self.space[2])
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]-(i-1),self.space[2])] == oppcolor:
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor 
+    # def direct4(self,player,space,board):
+    #     '''checks left (west): x-1, y+0'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1]-i,self.space[2])
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1]-(i-1),self.space[2])] == oppcolor:
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor 
 
-     def direct5(self,player,space,board):
-        '''checks right (east): x+1, y+0'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]+i,self.space[2])
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]+(i-1),self.space[2])] == oppcolor:
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+    #  def direct5(self,player,space,board):
+    #     '''checks right (east): x+1, y+0'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1]+i,self.space[2])
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1]+(i-1),self.space[2])] == oppcolor:
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor
 
-    def direct6(self,player,space,board):
-        '''checks diagonal negative negative (southwest): x-1, y-1'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]-i,self.space[2]-i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]-(i-1),self.space[2]-(i-1))] == oppcolor:
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor 
+    # def direct6(self,player,space,board):
+    #     '''checks diagonal negative negative (southwest): x-1, y-1'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1]-i,self.space[2]-i)
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1]-(i-1),self.space[2]-(i-1))] == oppcolor:
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor 
 
 
-    def direct7(self,player,space,board):
-        '''checks diagonal positive negative (southeast): x+1, y-1'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1]+i,self.space[2]-i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1]+(i-1),self.space[2]-(i-1))] == oppcolor:
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor 
+    # def direct7(self,player,space,board):
+    #     '''checks diagonal positive negative (southeast): x+1, y-1'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1]+i,self.space[2]-i)
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1]+(i-1),self.space[2]-(i-1))] == oppcolor:
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor 
 
-    def direct8(self,player,space,board):
-        '''checks directly below (south): x+0, y-1'''
-        if self.player == 'B':
-            oppcolor = 'W'
-        else:
-            oppcolor = 'B'
-        for i in range(1,8):
-            square1 = (self.space[1],self.space[2]-i)
-            if self.board[square1] == 'E':
-                break
-            if self.board[square1] == oppcolor:
-                self.board[square1] = 'C'
-                i+1
-            if self.board[square1] == self.player:
-                if self.board[(self.space[1],self.space[2]-(i-1))] == oppcolor: #why i-1?
-                    if value == 'C':
-                        value = self.player
-                else:
-                    break
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor 
+    # def direct8(self,player,space,board):
+    #     '''checks directly below (south): x+0, y-1'''
+    #     if self.player == 'B':
+    #         oppcolor = 'W'
+    #     else:
+    #         oppcolor = 'B'
+    #     for i in range(1,8):
+    #         square1 = (self.space[1],self.space[2]-i)
+    #         if self.board[square1] == 'E':
+    #             break
+    #         if self.board[square1] == oppcolor:
+    #             self.board[square1] = 'C'
+    #             i+1
+    #         if self.board[square1] == self.player:
+    #             if self.board[(self.space[1],self.space[2]-(i-1))] == oppcolor: #why i-1?
+    #                 if value == 'C':
+    #                     value = self.player
+    #             else:
+    #                 break
+    #     for value in self.board:
+    #         if value == 'C':
+    #             value = oppcolor 
 
     def empty_space(self,space):
-        if self.board[space[1],space[2]] == 'E':
+        if grid[space[1],space[2]] == 'E':
             pass
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
 
     def __str__(self):
-        return str(self.board)
+        return str(grid)
 
 if __name__ == "__main__":
 
@@ -247,12 +231,11 @@ if __name__ == "__main__":
     # test_piece.flip()
     # print test_piece
 
-    # test_board = Board()
-    # print test_board
+    #test_board = Board()
+    #print test_board
 
-    test_game = Gameplay(Board(),'B', (3,4))
+    test_game = Gameplay(Board(),'W', (1,2))
     print test_game
-
 
 
 
