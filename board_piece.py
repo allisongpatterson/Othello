@@ -28,7 +28,7 @@ class Gameplay(object):
     def __init__(self):
         self.board = Board().board
 
-    def switch_player(last_player):
+    def switch_player(self,last_player):
         if last_player == 'B':
             player = 'W'
         else:
@@ -47,12 +47,18 @@ class Gameplay(object):
                     self.board[str(space[0]+i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player: #why i-1?
+                if self.board[str(space[0]+i),str(space[1]+i)] == player:
                     if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
-                        for value in self.board:
+                        for key, value in self.board.items():
                             if value == 'C':
-                                value = player
-                                switch_player(player)
+                                self.board[key] = player
+                                self.switch_player(player)
+                                self.board[str(space[0]),str(space[1])] = player
+                        # for value in self.board:
+                        #     if value == 'C':
+                        #         value = player
+                        #         switch_player(player)
+                        #         self.board[str(space[0]),str(space[1])] == player
         for value in self.board:
             if value == 'C':
                 value = oppcolor
