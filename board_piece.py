@@ -25,33 +25,31 @@ class Board(object):
 class Gameplay(object):
     '''Defines legal movements for pieces'''
 
-    def __init__(self,board,player,space):
-        self.board = Board()
-        self.player = 'W'
-        self.space = space
+    def __init__(self):
+        self.board = Board().board
 
 
-    def direct1(self,board,player,space):
+    def direct1(self,player,space):
         '''checks diagonal positive positive (northeast): x+1, y+1'''
-        grid = self.board
-        if self.player == 'B':
+        if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
-        if grid[str(self.space[0]),str(self.space[1])] == 'E':
+        return type(self.board)
+        if self.board[(space[0]),(space[1])] == 'E':
             for i in range(1,8):
-                if grid[str(self.space[0]+i),str(self.space[1]+i)] == oppcolor:
-                    grid[str(self.space[0]+i),str(self.space[1]+i)] = 'C'
-                if grid[str(self.space[0]+i),str(self.space[1]+i)] == 'E':
-                    break #does break work that quits all loops and goes to for loop?
-                if grid[str(self.space[0]+i),str(self.space[1]+i)] == self.player: #why i-1?
-                    if grid[str(self.space[0]+(i-1)),str(self.space[1]+(i-1))] == 'C':
-                        if grid.value == 'C':
-                            value = self.player
-        for value in grid:
+                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
+                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
+                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                    break 
+                if self.board[str(space[0]+i),str(space[1]+i)] == player: #why i-1?
+                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                        if self.board.value == 'C':
+                            value = player
+        for value in self.board:
             if value == 'C':
                 value = oppcolor
-
+        return self.board
 
     # def direct2(self,player,space,board):
     #     '''checks directly above (north): x+0, y+1'''
@@ -217,13 +215,13 @@ class Gameplay(object):
     #             value = oppcolor 
 
     def empty_space(self,space):
-        if grid[space[1],space[2]] == 'E':
+        if self.board[space[1],space[2]] == 'E':
             pass
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
 
     def __str__(self):
-        return str(grid)
+        return str(sorted(self.board))
 
 if __name__ == "__main__":
 
@@ -231,10 +229,11 @@ if __name__ == "__main__":
     # test_piece.flip()
     # print test_piece
 
-    #test_board = Board()
-    #print test_board
+    # test_board = Board()
+    # print test_board
 
-    test_game = Gameplay(Board(),'W', (1,2))
+    test_game = Gameplay()
+    test_game.direct1('W',(2,2))
     print test_game
 
 
