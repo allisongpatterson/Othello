@@ -14,10 +14,9 @@ class Piece(object):
 class Board(object):
     def __init__(self):
         self.board = {}
-        alpha = list('01234567')
         for i in range(8):
             for k in range (8):
-                coord = alpha[k]  + str(i)
+                coord = str(k)  + str(i)
                 self.board[tuple(coord)] = 'E'
         self.place_piece_at(Piece('W'), 3, 4)
         self.place_piece_at(Piece('B'), 3, 3)
