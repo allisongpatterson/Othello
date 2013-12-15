@@ -28,6 +28,12 @@ class Gameplay(object):
     def __init__(self):
         self.board = Board().board
 
+    def switch_player(last_player):
+        if last_player == 'B':
+            player = 'W'
+        else:
+            player = 'B'
+        return player
 
     def direct1(self,player,space):
         '''checks diagonal positive positive (northeast): x+1, y+1'''
@@ -35,8 +41,7 @@ class Gameplay(object):
             oppcolor = 'W'
         else:
             oppcolor = 'B'
-        return type(self.board)
-        if self.board[(space[0]),(space[1])] == 'E':
+        if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
                 if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]+i),str(space[1]+i)] = 'C'
@@ -44,8 +49,10 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]+i),str(space[1]+i)] == player: #why i-1?
                     if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
-                        if self.board.value == 'C':
-                            value = player
+                        for value in self.board:
+                            if value == 'C':
+                                value = player
+                                switch_player(player)
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -215,13 +222,13 @@ class Gameplay(object):
     #             value = oppcolor 
 
     def empty_space(self,space):
-        if self.board[space[1],space[2]] == 'E':
+        if self.board[space[0],space[1]] == 'E':
             pass
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
 
     def __str__(self):
-        return str(sorted(self.board))
+        return str(self.board)
 
 if __name__ == "__main__":
 
