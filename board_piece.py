@@ -1,31 +1,46 @@
-class Board(object):
+# class Board(object):
+#     def __init__(self):
+#         self.newboard = None
+#         self.board = {}
+#         for i in range(8):
+#             for k in range (8):
+#                 coord = str(k)  + str(i)
+#                 self.board[tuple(coord)] = 'E'
+#         self.place_piece_at('W', '3', '4')
+#         self.place_piece_at('B', '3', '3')
+#         self.place_piece_at('W', '4', '3')
+#         self.place_piece_at('B', '4', '4')
+
+#     def __str__(self):
+#         for self.board[0] in range(8):
+#             for self.board[1] in range(8):
+#                 return str(self.board)
+
+
+#     def place_piece_at(self, piece, x, y):
+#         self.board[x,y] = piece
+
+
+
+class Gameplay(object):
+    '''Defines legal movements for pieces'''
+
+ 
+
     def __init__(self):
-        self.theboard = {}
+        self.board = {}
         for i in range(8):
             for k in range (8):
                 coord = str(k)  + str(i)
-                self.theboard[tuple(coord)] = 'E'
+                self.board[tuple(coord)] = 'E'
+        self.board[('3','4')]='W'
         self.place_piece_at('W', '3', '4')
         self.place_piece_at('B', '3', '3')
         self.place_piece_at('W', '4', '3')
         self.place_piece_at('B', '4', '4')
 
-    def __str__(self):
-        for self.theboard[0] in range(8):
-            for self.theboard[1] in range(8):
-                return str(self.theboard)
-
-
     def place_piece_at(self, piece, x, y):
-        self.theboard[x,y] = piece
-
-
-
-class Gameplay(Board):
-    '''Defines legal movements for pieces'''
-
-    def __init__(self):
-        Board.__init__(self)
+        self.board[x,y] = piece
 
     def switch_player(self,last_player):
         if last_player == 'B':
@@ -51,7 +66,6 @@ class Gameplay(Board):
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
-                                self.switch_player(player)
                                 self.board[str(space[0]),str(space[1])] = player
         else:
             self.empty_space(space)
@@ -77,7 +91,6 @@ class Gameplay(Board):
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
-                                self.switch_player(player)
                                 self.board[str(space[0]),str(space[1])] = player
         for value in self.board:
             if value == 'C':
@@ -247,16 +260,18 @@ if __name__ == "__main__":
     # print test_board
 
     test_game = Gameplay()
-    coordinate = (6,6)
-    test_game.direct1('W',coordinate)
-    test_game.direct2('W',coordinate)
-    test_game.direct3('W',coordinate)
-    test_game.direct4('W',coordinate)
-    test_game.direct5('W',coordinate)
-    test_game.direct6('W',coordinate)
-    test_game.direct7('W',coordinate)
-    test_game.direct8('W',coordinate)
-    print test_game
+    coordinate = (2,2)
+    piece_color = 'B'
+    test_game.direct1(piece_color,coordinate)
+    test_game.direct2(piece_color,coordinate)
+    test_game.direct3(piece_color,coordinate)
+    test_game.direct4(piece_color,coordinate)
+    test_game.direct5(piece_color,coordinate)
+    test_game.direct6(piece_color,coordinate)
+    test_game.direct7(piece_color,coordinate)
+    test_game.direct8(piece_color,coordinate)
+    print test_game.turn_number
+    # print test_game.board[('3','3')]
 
 
 
