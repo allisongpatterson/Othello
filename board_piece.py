@@ -116,12 +116,11 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
-            for space in self.board:
-                if space[0] == '0':
-                    return
-                if space[1] == '7':
-                    return
             for i in range(1,8):
+                if space[0] == 0:
+                    break
+                if space[1] == 7:
+                    break
                 if self.board[str(space[0]-i),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]-i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]-i),str(space[1]+i)] == 'E':
