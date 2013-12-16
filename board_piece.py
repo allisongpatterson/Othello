@@ -32,16 +32,12 @@ class Gameplay(object):
         self.board = {}
         for i in range(8):
             for k in range (8):
-                coord = str(k)  + str(i)
-                self.board[tuple(coord)] = 'E'
+                self.coord = str(k)  + str(i)
+                self.board[tuple(self.coord)] = 'E'
         self.board[('3','4')]='W'
-        self.place_piece_at('W', '3', '4')
-        self.place_piece_at('B', '3', '3')
-        self.place_piece_at('W', '4', '3')
-        self.place_piece_at('B', '4', '4')
-
-    def place_piece_at(self, piece, x, y):
-        self.board[x,y] = piece
+        self.board[('3','3')]='B'
+        self.board[('4','3')]='W'
+        self.board[('4','4')]='B'
 
     def switch_player(self,last_player):
         if last_self.player == 'B':
@@ -57,6 +53,10 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for self.coord in self.board:
+                for (x,y) in self.coord:
+                    if x or y == '7':
+                        break
             for i in range(1,8):
                 if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]+i),str(space[1]+i)] = 'C'
@@ -69,8 +69,6 @@ class Gameplay(object):
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 a = 1
-        else:
-            self.empty_space(space)
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -265,7 +263,7 @@ if __name__ == "__main__":
     # print test_board
 
     test_game = Gameplay()
-    coordinate = (4,2)
+    coordinate = (0,7)
     piece_color = test_game.player
     test_game.direct1(piece_color,coordinate)
     test_game.direct2(piece_color,coordinate)
