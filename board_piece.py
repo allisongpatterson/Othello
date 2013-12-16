@@ -1,32 +1,31 @@
 class Board(object):
     def __init__(self):
-        self.board = {}
+        self.theboard = {}
         for i in range(8):
             for k in range (8):
                 coord = str(k)  + str(i)
-                self.board[tuple(coord)] = 'E'
+                self.theboard[tuple(coord)] = 'E'
         self.place_piece_at('W', '3', '4')
         self.place_piece_at('B', '3', '3')
         self.place_piece_at('W', '4', '3')
         self.place_piece_at('B', '4', '4')
-        self.place_piece_at('W', '5', '5')
 
     def __str__(self):
-        for self.board[0] in range(8):
-            for self.board[1] in range(8):
-                return str(self.board)
+        for self.theboard[0] in range(8):
+            for self.theboard[1] in range(8):
+                return str(self.theboard)
 
 
     def place_piece_at(self, piece, x, y):
-        self.board[x,y] = piece
+        self.theboard[x,y] = piece
 
 
 
-class Gameplay(object):
+class Gameplay(Board):
     '''Defines legal movements for pieces'''
 
     def __init__(self):
-        self.board = Board().board
+        Board.__init__(self)
 
     def switch_player(self,last_player):
         if last_player == 'B':
@@ -170,7 +169,7 @@ class Gameplay(object):
                 if self.board[str(space[0]),str(space[1]-i)] == 'E':
                     break 
                 if self.board[str(space[0]),str(space[1]-i)] == player:
-                    if self.board[str(space[0],str(space[1]-(i-1))] == 'C':
+                    if self.board[str(space[0]),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -248,14 +247,15 @@ if __name__ == "__main__":
     # print test_board
 
     test_game = Gameplay()
-    test_game.direct1('W',(2,2))
-    test_game.direct2('W',(2,2))
-    test_game.direct3('W',(2,2))
-    test_game.direct4('W',(2,2))
-    test_game.direct5('W',(2,2))
-    test_game.direct6('W',(2,2))
-    test_game.direct7('W',(2,2))
-    test_game.direct8('W',(2,2))
+    coordinate = (6,6)
+    test_game.direct1('W',coordinate)
+    test_game.direct2('W',coordinate)
+    test_game.direct3('W',coordinate)
+    test_game.direct4('W',coordinate)
+    test_game.direct5('W',coordinate)
+    test_game.direct6('W',coordinate)
+    test_game.direct7('W',coordinate)
+    test_game.direct8('W',coordinate)
     print test_game
 
 
