@@ -1,14 +1,56 @@
-# -*- coding: utf-8 -*-
-from Tkinter import *
- 
-class Canvassing():
-  def __init__(self, parent = None):
-    self.canvas = Canvas(width=256, height=256, bg = "dark green")
-    self.canvas.pack()
-    for n in range(8):
-    	self.canvas.create_line(1,32*n,256,32*n, fill = "green")
-    for n in range(8):
-    	self.canvas.create_line(32*n,1,32*n,256, fill = "green")
- 
-Canvassing()
-mainloop()
+from Tkinter import*
+
+class Board(Canvas):
+    global scaling_factor
+    scaling_factor=90
+    
+    def __init__(self, parent):
+        Canvas.__init__(self, parent, background='forest green')    
+        
+        self.parent = parent
+        self.parent.title("Othello")
+        self.pack(fill=BOTH, expand=1)
+        self.centerWindow()
+        self.makeBoard()
+        self.bind("<1>", self.Move)
+
+    def centerWindow(self):
+        self.w = scaling_factor*8
+        self.h = scaling_factor*8
+
+        self.sw = self.parent.winfo_screenwidth()
+        self.sh = self.parent.winfo_screenheight()
+        
+        x = (self.sw - self.w)/2
+        y = (self.sh - self.h)/2
+        self.parent.geometry('%dx%d+%d+%d' % (self.w, self.h, x, y))
+
+    def makeBoard(self):
+        #horizontal lines
+        for n in range(1,9):
+            self.create_line(0,scaling_factor*n,self.w,scaling_factor*n, fill = 'black', width=5)
+        #vertical lines
+        for n in range(1,9):
+            self.create_line(scaling_factor*n,0,scaling_factor*n,self.w, fill = 'black',width=5)
+        #self.r=scaling_factor*.75
+        self.r=scaling_factor/4
+
+
+    def Move(self, event):
+        #print "frame coordinates: %s,%s" % (event.x, event.y)
+        if (event.x,event.y)<=(self.w,self.h):
+            x=(int(event.x/scaling_factor)*scaling_factor)+(scaling_factor/2)
+            y=(int(event.y/scaling_factor)*scaling_factor)+(scaling_factor/2)
+            self.create_oval(x-self.r,y-self.r,x+self.r,y+self.r,fill='black',outline='black')
+            print(x-self.r,y-self.r,x+self.r,y+self.r)
+            return (str(int(event.x/scaling_factor)),str(int(event.y/scaling_factor)))    #returns coordinate that goes into logic code (maybe don't return this, but make it an input into code and output from code should be input of circle attributes)
+        else:
+            return
+
+def main():
+    root = Tk()
+    Board(root)
+    root.mainloop()  
+
+if __name__ == '__main__':
+    main()  
