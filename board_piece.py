@@ -30,6 +30,14 @@ class Gameplay(object):
     def __init__(self):
         self.player = 'B'
         self.board = {}
+        self.a = 0
+        self.b = 0
+        self.c = 0
+        self.d = 0
+        self.e = 0
+        self.f = 0
+        self.g = 0
+        self.h = 0
         for i in range(8):
             for k in range (8):
                 self.coord = str(k)  + str(i)
@@ -41,7 +49,7 @@ class Gameplay(object):
 
     def switch_player(self,last_player):
         if last_self.player == 'B':
-            self.self.player = 'W'
+            self.player = 'W'
         else:
             self.player = 'B'
         return self.player
@@ -53,11 +61,11 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
-            for self.coord in self.board:
-                for (x,y) in self.coord:
-                    if x or y == '7':
-                        break
             for i in range(1,8):
+                if space[0] == 7:
+                    break
+                if space[1] == 7:
+                    break
                 if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]+i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
@@ -68,11 +76,11 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                a = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
-        return self.board
+                                self.a = 1
+            for value in self.board:
+                if value == 'C':
+                    value = oppcolor
+            return self.board
 
     def direct2(self,player,space):
         '''checks upward(north): x+0, y+1'''
@@ -82,6 +90,8 @@ class Gameplay(object):
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
+                if space[1] == '7':
+                    return
                 if self.board[str(space[0]),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]),str(space[1]+i)] == 'E':
@@ -92,7 +102,8 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                b = 1
+                                self.b = 1
+                                return
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -105,6 +116,11 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[0] == '0':
+                    return
+                if space[1] == '7':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]-i),str(space[1]+i)] == oppcolor:
                     self.board[str(space[0]-i),str(space[1]+i)] = 'C'
@@ -116,7 +132,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                c = 1
+                                self.c = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -129,6 +145,9 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[0] == '0':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]-i),str(space[1])] == oppcolor:
                     self.board[str(space[0]-i),str(space[1])] = 'C'
@@ -140,7 +159,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                d = 1
+                                self.d = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -153,6 +172,9 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[0] or space[1] == '0':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]-i),str(space[1]-i)] == oppcolor:
                     self.board[str(space[0]-i),str(space[1]-i)] = 'C'
@@ -164,7 +186,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                e = 1
+                                self.e = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -177,6 +199,9 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[1] == '0':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]),str(space[1]-i)] == oppcolor:
                     self.board[str(space[0]),str(space[1]-i)] = 'C'
@@ -188,7 +213,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                f = 1
+                                self.f = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -201,6 +226,11 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[0] == '7':
+                    return
+                if space[1] == '0':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]+i),str(space[1]-i)] == oppcolor:
                     self.board[str(space[0]+i),str(space[1]-i)] = 'C'
@@ -212,7 +242,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                g = 1
+                                self.g = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -225,6 +255,9 @@ class Gameplay(object):
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
+            for space in self.board:
+                if space[0] == '7':
+                    return
             for i in range(1,8):
                 if self.board[str(space[0]+i),str(space[1])] == oppcolor:
                     self.board[str(space[0]+i),str(space[1])] = 'C'
@@ -236,7 +269,7 @@ class Gameplay(object):
                             if value == 'C':
                                 self.board[key] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
-                                h = 1
+                                self.h = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -244,9 +277,12 @@ class Gameplay(object):
 
     def empty_space(self,space):
         if self.board[str(space[0]),str(space[1])] == 'E':
-            if a + b + c + d + e + f + g + h >= 1:
+            if self.a + self.b + self.c + self.d + self.e + self.f + self.g + self.h >= 1:
                 switch_player(self.player)
-                a,b,c,d,e,f,g,h = 0
+                self.a,self.b,self.c,self.d,self.e,self.f,self.g,self.h = 0
+                return switch_player(self.player)
+            else:
+                return 'ERROR'
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
 
@@ -263,7 +299,7 @@ if __name__ == "__main__":
     # print test_board
 
     test_game = Gameplay()
-    coordinate = (0,7)
+    coordinate = (4,2)
     piece_color = test_game.player
     test_game.direct1(piece_color,coordinate)
     test_game.direct2(piece_color,coordinate)
@@ -273,9 +309,11 @@ if __name__ == "__main__":
     test_game.direct6(piece_color,coordinate)
     test_game.direct7(piece_color,coordinate)
     test_game.direct8(piece_color,coordinate)
-    empty_space(coordinate)
+    test_game.empty_space(coordinate)
     # print test_game.turn_number
+    # print test_game.direct2(piece_color,coordinate)
     print test_game.board
+    print test_game.empty_space(coordinate)
 
 
 
