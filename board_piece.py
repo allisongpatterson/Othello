@@ -54,6 +54,8 @@ class Gameplay(object):
                                 self.board[key] = player
                                 self.switch_player(player)
                                 self.board[str(space[0]),str(space[1])] = player
+        else:
+            self.empty_space(space)
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -108,19 +110,19 @@ class Gameplay(object):
         return self.board
 
     def direct4(self,player,space):
-        '''checks left(west): x+1, y+1'''
+        '''checks left(west): x-1, y+0'''
         if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
-                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
-                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
-                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                if self.board[str(space[0]-i),str(space[1])] == oppcolor:
+                    self.board[str(space[0]-i),str(space[1])] = 'C'
+                if self.board[str(space[0]-i),str(space[1])] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
-                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                if self.board[str(space[0]-i),str(space[1])] == player:
+                    if self.board[str(space[0]-(i-1)),str(space[1])] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -131,20 +133,20 @@ class Gameplay(object):
                 value = oppcolor
         return self.board
 
-    def direct1(self,player,space):
-        '''checks diagonal positive positive (northeast): x+1, y+1'''
+    def direct5(self,player,space):
+        '''checks diagonal negative negative (southwest): x-1, y-1'''
         if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
-                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
-                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
-                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                if self.board[str(space[0]-i),str(space[1]-i)] == oppcolor:
+                    self.board[str(space[0]-i),str(space[1]-i)] = 'C'
+                if self.board[str(space[0]-i),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
-                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                if self.board[str(space[0]-i),str(space[1]-i)] == player:
+                    if self.board[str(space[0]-(i-1)),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -155,20 +157,20 @@ class Gameplay(object):
                 value = oppcolor
         return self.board
 
-    def direct1(self,player,space):
-        '''checks diagonal positive positive (northeast): x+1, y+1'''
+    def direct6(self,player,space):
+        '''checks downward (south): x+0, y-1'''
         if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
-                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
-                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
-                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                if self.board[str(space[0]),str(space[1]-i)] == oppcolor:
+                    self.board[str(space[0]),str(space[1]-i)] = 'C'
+                if self.board[str(space[0]),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
-                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                if self.board[str(space[0]),str(space[1]-i)] == player:
+                    if self.board[str(space[0],str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -179,20 +181,20 @@ class Gameplay(object):
                 value = oppcolor
         return self.board
 
-    def direct1(self,player,space):
-        '''checks diagonal positive positive (northeast): x+1, y+1'''
+    def direct7(self,player,space):
+        '''checks diagonal positive negative (southeast): x+1, y-1'''
         if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
-                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
-                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
-                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                if self.board[str(space[0]+i),str(space[1]-i)] == oppcolor:
+                    self.board[str(space[0]+i),str(space[1]-i)] = 'C'
+                if self.board[str(space[0]+i),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
-                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                if self.board[str(space[0]+i),str(space[1]-i)] == player:
+                    if self.board[str(space[0]+(i-1)),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -203,20 +205,20 @@ class Gameplay(object):
                 value = oppcolor
         return self.board
 
-    def direct1(self,player,space):
-        '''checks diagonal positive positive (northeast): x+1, y+1'''
+    def direct8(self,player,space):
+        '''checks right (east): x+1, y+0'''
         if player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
         if self.board[str(space[0]),str(space[1])] == 'E':
             for i in range(1,8):
-                if self.board[str(space[0]+i),str(space[1]+i)] == oppcolor:
-                    self.board[str(space[0]+i),str(space[1]+i)] = 'C'
-                if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
+                if self.board[str(space[0]+i),str(space[1])] == oppcolor:
+                    self.board[str(space[0]+i),str(space[1])] = 'C'
+                if self.board[str(space[0]+i),str(space[1])] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
-                    if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
+                if self.board[str(space[0]+i),str(space[1])] == player:
+                    if self.board[str(space[0]+(i-1)),str(space[1])] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
                                 self.board[key] = player
@@ -228,7 +230,7 @@ class Gameplay(object):
         return self.board
 
     def empty_space(self,space):
-        if self.board[space[0],space[1]] == 'E':
+        if self.board[str(space[0]),str(space[1])] == 'E':
             pass
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
@@ -247,6 +249,13 @@ if __name__ == "__main__":
 
     test_game = Gameplay()
     test_game.direct1('W',(2,2))
+    test_game.direct2('W',(2,2))
+    test_game.direct3('W',(2,2))
+    test_game.direct4('W',(2,2))
+    test_game.direct5('W',(2,2))
+    test_game.direct6('W',(2,2))
+    test_game.direct7('W',(2,2))
+    test_game.direct8('W',(2,2))
     print test_game
 
 
