@@ -28,6 +28,7 @@ class Gameplay(object):
  
 
     def __init__(self):
+        self.player = 'B'
         self.board = {}
         for i in range(8):
             for k in range (8):
@@ -43,15 +44,15 @@ class Gameplay(object):
         self.board[x,y] = piece
 
     def switch_player(self,last_player):
-        if last_player == 'B':
-            player = 'W'
+        if last_self.player == 'B':
+            self.self.player = 'W'
         else:
-            player = 'B'
-        return player
+            self.player = 'B'
+        return self.player
 
     def direct1(self,player,space):
         '''checks diagonal positive positive (northeast): x+1, y+1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -61,12 +62,13 @@ class Gameplay(object):
                     self.board[str(space[0]+i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]+i),str(space[1]+i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]+i)] == player:
+                if self.board[str(space[0]+i),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                a = 1
         else:
             self.empty_space(space)
         for value in self.board:
@@ -76,7 +78,7 @@ class Gameplay(object):
 
     def direct2(self,player,space):
         '''checks upward(north): x+0, y+1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -86,12 +88,13 @@ class Gameplay(object):
                     self.board[str(space[0]),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]),str(space[1]+i)] == 'E':
                     break 
-                if self.board[str(space[0]),str(space[1]+i)] == player:
+                if self.board[str(space[0]),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]),str(space[1]+(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                b = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -99,7 +102,7 @@ class Gameplay(object):
 
     def direct3(self,player,space):
         '''checks diagonal negative positive (northwest): x-1, y+1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -109,13 +112,13 @@ class Gameplay(object):
                     self.board[str(space[0]-i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]-i),str(space[1]+i)] == 'E':
                     break 
-                if self.board[str(space[0]-i),str(space[1]+i)] == player:
+                if self.board[str(space[0]-i),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1]+(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                c = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -123,7 +126,7 @@ class Gameplay(object):
 
     def direct4(self,player,space):
         '''checks left(west): x-1, y+0'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -133,13 +136,13 @@ class Gameplay(object):
                     self.board[str(space[0]-i),str(space[1])] = 'C'
                 if self.board[str(space[0]-i),str(space[1])] == 'E':
                     break 
-                if self.board[str(space[0]-i),str(space[1])] == player:
+                if self.board[str(space[0]-i),str(space[1])] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1])] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                d = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -147,7 +150,7 @@ class Gameplay(object):
 
     def direct5(self,player,space):
         '''checks diagonal negative negative (southwest): x-1, y-1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -157,13 +160,13 @@ class Gameplay(object):
                     self.board[str(space[0]-i),str(space[1]-i)] = 'C'
                 if self.board[str(space[0]-i),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]-i),str(space[1]-i)] == player:
+                if self.board[str(space[0]-i),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                e = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -171,7 +174,7 @@ class Gameplay(object):
 
     def direct6(self,player,space):
         '''checks downward (south): x+0, y-1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -181,13 +184,13 @@ class Gameplay(object):
                     self.board[str(space[0]),str(space[1]-i)] = 'C'
                 if self.board[str(space[0]),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]),str(space[1]-i)] == player:
+                if self.board[str(space[0]),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                f = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -195,7 +198,7 @@ class Gameplay(object):
 
     def direct7(self,player,space):
         '''checks diagonal positive negative (southeast): x+1, y-1'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -205,13 +208,13 @@ class Gameplay(object):
                     self.board[str(space[0]+i),str(space[1]-i)] = 'C'
                 if self.board[str(space[0]+i),str(space[1]-i)] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1]-i)] == player:
+                if self.board[str(space[0]+i),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1]-(i-1))] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                g = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -219,7 +222,7 @@ class Gameplay(object):
 
     def direct8(self,player,space):
         '''checks right (east): x+1, y+0'''
-        if player == 'B':
+        if self.player == 'B':
             oppcolor = 'W'
         else:
             oppcolor = 'B'
@@ -229,13 +232,13 @@ class Gameplay(object):
                     self.board[str(space[0]+i),str(space[1])] = 'C'
                 if self.board[str(space[0]+i),str(space[1])] == 'E':
                     break 
-                if self.board[str(space[0]+i),str(space[1])] == player:
+                if self.board[str(space[0]+i),str(space[1])] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1])] == 'C':
                         for key, value in self.board.items():
                             if value == 'C':
-                                self.board[key] = player
-                                self.switch_player(player)
-                                self.board[str(space[0]),str(space[1])] = player
+                                self.board[key] = self.player
+                                self.board[str(space[0]),str(space[1])] = self.player
+                                h = 1
         for value in self.board:
             if value == 'C':
                 value = oppcolor
@@ -243,7 +246,9 @@ class Gameplay(object):
 
     def empty_space(self,space):
         if self.board[str(space[0]),str(space[1])] == 'E':
-            pass
+            if a + b + c + d + e + f + g + h >= 1:
+                switch_player(self.player)
+                a,b,c,d,e,f,g,h = 0
         else:
             return 'Sorry, that is not a valid move! Please select an empty space.'
 
@@ -260,8 +265,8 @@ if __name__ == "__main__":
     # print test_board
 
     test_game = Gameplay()
-    coordinate = (2,2)
-    piece_color = 'B'
+    coordinate = (4,2)
+    piece_color = test_game.player
     test_game.direct1(piece_color,coordinate)
     test_game.direct2(piece_color,coordinate)
     test_game.direct3(piece_color,coordinate)
@@ -270,8 +275,9 @@ if __name__ == "__main__":
     test_game.direct6(piece_color,coordinate)
     test_game.direct7(piece_color,coordinate)
     test_game.direct8(piece_color,coordinate)
-    print test_game.turn_number
-    # print test_game.board[('3','3')]
+    empty_space(coordinate)
+    # print test_game.turn_number
+    print test_game.board
 
 
 
