@@ -2,6 +2,7 @@
 from Tkinter import*
 from canvassing import*
 
+
 class Gameplay(object):
     '''Defines legal movements for pieces'''
  
@@ -58,7 +59,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.a = 1
         print 'going'
         for x, y in self.board:
@@ -88,7 +88,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.b = 1
         #print 'going'
         for x, y in self.board:
@@ -120,7 +119,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.c = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -150,7 +148,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.d = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -173,15 +170,18 @@ class Gameplay(object):
                 if space[1] == 0:
                     break
                 if self.board[str(space[0]-i),str(space[1]+i)] == oppcolor:
+                    print 'making a C'
                     self.board[str(space[0]-i),str(space[1]+i)] = 'C'
                 if self.board[str(space[0]-i),str(space[1]+i)] == 'E':
+                    print 'breaking empty'
                     break 
                 if self.board[str(space[0]-i),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1]+(i-1))] == 'C':
+                        print 'need to change C'
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
+                                print 'Changed C'
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.e = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -210,7 +210,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.f = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -241,7 +240,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.g = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -270,7 +268,6 @@ class Gameplay(object):
                         for x, y in self.board:
                             if self.board[str(x),str(y)] == 'C':
                                 self.board[str(x),str(y)] = self.player
-                                self.board[str(space[0]),str(space[1])] = self.player
                                 self.h = 1
         for x, y in self.board:
             if self.board[str(x),str(y)] == 'C':
@@ -286,6 +283,7 @@ class Gameplay(object):
         # return self.player_number
         if self.a + self.b + self.c + self.d + self.e + self.f + self.g + self.h != 0:
         #if self.board[str(space[0]),str(space[1])] == self.player:
+            self.board[str(space[0]),str(space[1])] = self.player
             self.playernum += 1
             self.a = 0
             self.b = 0
@@ -328,6 +326,7 @@ if __name__ == "__main__":
     # test_board = Board()
     # print test_board
 
+    
    
 
     root = Tk()
@@ -344,8 +343,6 @@ if __name__ == "__main__":
 
     #test_game.empty_space(coordinate,test_game.player)
     # print test_game.board
-
-
 
 
 
