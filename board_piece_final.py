@@ -6,7 +6,8 @@ from canvassing import*
 class Gameplay(object):
     '''Defines legal movements for pieces'''
  
-    def __init__(self):
+    def __init__(self,grid):
+        self.grid=grid
         self.board = {}
         self.a = 0
         self.b = 0
@@ -294,6 +295,19 @@ class Gameplay(object):
 
     # def __str__(self):
     #     return str(self.board)
+    def updateBoard(self,coordinate):
+        self.pre_direct(self.board)
+        self.direct1(self.player,coordinate)
+        self.direct2(self.player,coordinate)
+        self.direct3(self.player,coordinate)
+        self.direct4(self.player,coordinate)
+        self.direct5(self.player,coordinate)
+        self.direct6(self.player,coordinate)
+        self.direct7(self.player,coordinate)
+        self.direct8(self.player,coordinate)
+        self.empty_space(coordinate,self.player)
+        self.grid.makeBoard()
+        print self.board
 
 if __name__ == "__main__":
 
@@ -306,45 +320,21 @@ if __name__ == "__main__":
 
     
    
-    # root = Tk()
-    # gui = Board(root)
-    # root.mainloop()
+
+    root = Tk()
+    gui = Board(root)
+    root.mainloop()
+
+    print("done looping")
+
+    coordinate = gui.point
     test_game = Gameplay()
+    print coordinate
 
-    #coordinate = gui.point
-    #print gui.point
-    #print test_game.board[('3', '4')]
-    
-    # test_game.restart
-    
-    # print test_game.direct1(test_game.player,('7','7'))
-    # test_game.direct2(test_game.player,coordinate)
-    # test_game.direct3(test_game.player,coordinate)
-    # test_game.direct4(test_game.player,coordinate)
-    # test_game.direct5(test_game.player,coordinate)
-    # test_game.direct6(test_game.player,coordinate)
-    # test_game.direct7(test_game.player,coordinate)
-    # test_game.direct8(test_game.player,coordinate)
 
-    #print test_game.board
-    coordinate = (5,4)
+   
 
-    
-    # test_game.load_pickle()
-    print test_game.pre_direct(test_game.board)
-    print test_game.direct1(test_game.player,coordinate)
-    print test_game.direct2(test_game.player,coordinate)
-    print test_game.direct3(test_game.player,coordinate)
-    print test_game.direct4(test_game.player,coordinate)
-    print test_game.direct5(test_game.player,coordinate)
-    print test_game.direct6(test_game.player,coordinate)
-    print test_game.direct7(test_game.player,coordinate)
-    print test_game.direct8(test_game.player,coordinate)
-    
-
-    # test_game.save_pickle(test_game.board)    
-
-    print test_game.empty_space(coordinate,test_game.player)
+    #test_game.empty_space(coordinate,test_game.player)
     # print test_game.board
 
 

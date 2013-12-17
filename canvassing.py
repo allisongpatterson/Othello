@@ -14,9 +14,10 @@ class Board(Canvas):
         self.parent.title("Othello")
         self.pack(fill=BOTH, expand=1)
         self.centerWindow()
+        self.game=Gameplay(self)
         self.makeBoard()
         self.bind("<1>", self.Move)
-     
+        
 
     def centerWindow(self):
         self.w = scaling_factor*8
@@ -31,7 +32,8 @@ class Board(Canvas):
 
 
     def makeBoard(self):
-        logic = Gameplay()
+        logic = self.game
+        print logic.board
         #horizontal lines
         for n in range(1,9):
             self.create_line(0,scaling_factor*n,self.w,scaling_factor*n, fill = 'black', width=5)
@@ -53,18 +55,22 @@ class Board(Canvas):
             #self.create_oval(x-self.r,y-self.r,x+self.r,y+self.r,fill='black',outline='black')
             #print(x-self.r,y-self.r,x+self.r,y+self.r)
             self.point = (int(event.x/scaling_factor)),(int(event.y/scaling_factor))    #returns coordinate that goes into logic code (maybe don't return this, but make it an input into code and output from code should be input of circle attributes)
+            print self.point
+            self.game.updateBoard(self.point)
+            # self.makeBoard()
         else:
             return
         
 
 
 def main():
-    #logic = Gameplay()
+    logic = Gameplay()
     #boarddict=logic.board
     #print board
     root = Tk()
     Board(root)
     root.mainloop()
+    
 
 
 if __name__ == '__main__':
