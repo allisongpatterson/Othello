@@ -33,7 +33,7 @@ class Board(Canvas):
 
     def makeBoard(self):
         logic = self.game
-        print logic.board
+        #print logic.board
         #horizontal lines
         for n in range(1,9):
             self.create_line(0,scaling_factor*n,self.w,scaling_factor*n, fill = 'black', width=5)
@@ -55,7 +55,7 @@ class Board(Canvas):
             #self.create_oval(x-self.r,y-self.r,x+self.r,y+self.r,fill='black',outline='black')
             #print(x-self.r,y-self.r,x+self.r,y+self.r)
             self.point = (int(event.x/scaling_factor)),(int(event.y/scaling_factor))    #returns coordinate that goes into logic code (maybe don't return this, but make it an input into code and output from code should be input of circle attributes)
-            print self.point
+            #print self.point
             self.game.updateBoard(self.point)
             # self.makeBoard()
         else:
@@ -67,9 +67,9 @@ def main():
     logic = Gameplay()
     #boarddict=logic.board
     #print board
-    root = Tk()
-    Board(root)
-    root.mainloop()
+    # root = Tk()
+    # Board(root)
+    # root.mainloop()
     
 
 
