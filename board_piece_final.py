@@ -28,17 +28,17 @@ class Gameplay(object):
         self.playernum = 1
         print 'Initializing.'
 
-    def pre_direct(self,board):
+    def pre_direct(self):
         if self.playernum%2 == 0:
             self.player = 'white'
         if self.playernum%2 == 1:
             self.player = 'black'
-        else:
-            return "ERROR: PLAYER-PREDIRECT"
+
         #return self.player
 
     def direct1(self,player,space):
         '''checks diagonal positive positive (northeast): x+1, y-1'''
+        print self.player
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -52,17 +52,20 @@ class Gameplay(object):
                 if self.board[str(space[0]+i),str(space[1]-i)] == oppcolor:
                     self.board[str(space[0]+i),str(space[1]-i)] = 'C'
                 if self.board[str(space[0]+i),str(space[1]-i)] == 'E':
+                    print 'breaking empty'
                     break 
                 if self.board[str(space[0]+i),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1]-(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.a = 1
-            for value in self.board:
-                if value == 'C':
-                    value = oppcolor
+        print 'going'
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct1'
         print self.a
         print self.board[str(space[0]),str(space[1])]
@@ -83,14 +86,16 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]),str(space[1]-(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.b = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        #print 'going'
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct2'
         print self.b
         print self.board[str(space[0]),str(space[1])]
@@ -113,14 +118,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]-i),str(space[1]-i)] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1]-(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.c = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct3'
         print self.c
         print self.board[str(space[0]),str(space[1])]
@@ -142,14 +148,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]-i),str(space[1])] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1])] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.d = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct4'
         print self.d
         print self.board[str(space[0]),str(space[1])]
@@ -172,14 +179,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]-i),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]-(i-1)),str(space[1]+(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.e = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct5'
         print self.e
         print self.board[str(space[0]),str(space[1])]
@@ -200,14 +208,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]),str(space[1]+(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.f = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct6'
         print self.f
         print self.board[str(space[0]),str(space[1])]
@@ -230,14 +239,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]+i),str(space[1]+i)] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1]+(i-1))] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.g = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct7'
         print self.g
         print self.board[str(space[0]),str(space[1])]
@@ -258,14 +268,15 @@ class Gameplay(object):
                     break 
                 if self.board[str(space[0]+i),str(space[1])] == self.player:
                     if self.board[str(space[0]+(i-1)),str(space[1])] == 'C':
-                        for key, value in self.board.items():
-                            if value == 'C':
-                                self.board[key] = self.player
+                        for x, y in self.board:
+                            if self.board[str(x),str(y)] == 'C':
+                                self.board[str(x),str(y)] = self.player
                                 self.board[str(space[0]),str(space[1])] = self.player
                                 self.h = 1
-        for value in self.board:
-            if value == 'C':
-                value = oppcolor
+        for x, y in self.board:
+            if self.board[str(x),str(y)] == 'C':
+                if self.board[str(x),str(y)] == 'C':
+                    self.board[str(x),str(y)]= oppcolor
         print 'direct8'
         print self.h
         print self.board[str(space[0]),str(space[1])]
@@ -296,18 +307,18 @@ class Gameplay(object):
     # def __str__(self):
     #     return str(self.board)
     def updateBoard(self,coordinate):
-        self.pre_direct(self.board)
-        self.direct1(self.player,coordinate)
-        self.direct2(self.player,coordinate)
-        self.direct3(self.player,coordinate)
-        self.direct4(self.player,coordinate)
-        self.direct5(self.player,coordinate)
-        self.direct6(self.player,coordinate)
-        self.direct7(self.player,coordinate)
-        self.direct8(self.player,coordinate)
-        self.empty_space(coordinate,self.player)
+        print self.pre_direct()
+        print self.direct1(self.player,coordinate)
+        print self.direct2(self.player,coordinate)
+        print self.direct3(self.player,coordinate)
+        print self.direct4(self.player,coordinate)
+        print self.direct5(self.player,coordinate)
+        print self.direct6(self.player,coordinate)
+        print self.direct7(self.player,coordinate)
+        print self.direct8(self.player,coordinate)
+        print self.empty_space(coordinate,self.player)
         self.grid.makeBoard()
-        print self.board
+        #print self.board
 
 if __name__ == "__main__":
 
@@ -327,9 +338,8 @@ if __name__ == "__main__":
 
     print("done looping")
 
-    coordinate = gui.point
-    test_game = Gameplay()
-    print coordinate
+    #coordinate = gui.point
+    #print coordinate
 
 
    
