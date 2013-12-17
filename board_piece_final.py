@@ -2,7 +2,6 @@
 from Tkinter import*
 from canvassing import*
 
-
 class Gameplay(object):
     '''Defines legal movements for pieces'''
  
@@ -329,7 +328,6 @@ if __name__ == "__main__":
     # test_board = Board()
     # print test_board
 
-    
    
 
     root = Tk()
