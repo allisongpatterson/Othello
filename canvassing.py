@@ -41,7 +41,7 @@ class Board(Canvas):
              self.create_line(scaling_factor*n,0,scaling_factor*n,self.w, fill = 'black',width=5)
          self.r=scaling_factor/4
          for coordinates in logic.board:
-            if logic.board[str(coordinates[0]),str(coordinates[1])] == 'white' or logic.board[str(coordinates[0]),str(coordinates[1])] == 'black':
+            if logic.board[coordinates] == 'white' or logic.board[coordinates] == 'black':
                  self.create_oval(int(coordinates[0])*scaling_factor+self.r,int(coordinates[1])*scaling_factor+self.r,(int(coordinates[0])+1)*scaling_factor-self.r,(int(coordinates[1])+1)*scaling_factor-self.r,fill=logic.board[coordinates],outline=logic.board[coordinates])
  
     def Move(self, event, point = None):

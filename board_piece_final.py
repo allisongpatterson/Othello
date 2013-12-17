@@ -8,7 +8,6 @@ class Gameplay(object):
     def __init__(self,grid):
         self.grid=grid
         self.pieces_to_change = set()
-        self.pieces_to_keep = set()
         self.board = {}
         self.a = 0
         self.b = 0
@@ -34,6 +33,16 @@ class Gameplay(object):
             self.player = 'white'
         if self.playernum%2 == 1:
             self.player = 'black'
+        if self.player == 'black':
+            self.oppcolor = 'white'
+        else:
+            self.oppcolor = 'black'
+
+    def Change(pieces):
+        for coord in pieces:
+            self.board[coord] = self.player
+        self.playernum += 1
+
 
         #return self.player
 
@@ -54,21 +63,14 @@ class Gameplay(object):
                 if space[1]-i == -1:
                     break
                 if self.board[(space[0]+i),(space[1]-i)] == oppcolor:
-                    self.board[(space[0]+i),(space[1]-i)] = 'C'
+                    self.pieces_to_change.add((space[0]+i),(space[1]-i))
                 if self.board[(space[0]+i),(space[1]-i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]+i),(space[1]-i)] == self.player:
-                    if self.board[(space[0]+(i-1)),(space[1]-(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[x,y] == 'C':
-                                #self.pieces_to_change.add
-                                self.a = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[x,y] == 'C':
-                if self.board[x,y] == 'C':
-                    self.board[x,y]= oppcolor
         print 'direct1'
         print self.a
         print self.board[space]
@@ -347,14 +349,14 @@ class Gameplay(object):
     def updateBoard(self,coordinate):
         print self.pre_direct()
         print self.direct1(self.player,coordinate)
-        print self.direct2(self.player,coordinate)
-        print self.direct3(self.player,coordinate)
-        print self.direct4(self.player,coordinate)
-        print self.direct5(self.player,coordinate)
-        print self.direct6(self.player,coordinate)
-        print self.direct7(self.player,coordinate)
-        print self.direct8(self.player,coordinate)
-        print self.empty_space(coordinate,self.player)
+        # print self.direct2(self.player,coordinate)
+        # print self.direct3(self.player,coordinate)
+        # print self.direct4(self.player,coordinate)
+        # print self.direct5(self.player,coordinate)
+        # print self.direct6(self.player,coordinate)
+        # print self.direct7(self.player,coordinate)
+        # print self.direct8(self.player,coordinate)
+        # print self.empty_space(coordinate,self.player)
         #print self.board['5','1']
         self.grid.makeBoard()
         #print self.board
