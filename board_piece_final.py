@@ -88,21 +88,15 @@ class Gameplay(object):
                 if (space[1]-i) == '-1':
                     break
                 if self.board[(space[0]),(space[1]-i)] == oppcolor:
-                    self.board[(space[0]),(space[1]-i)] = 'C'
+                    self.pieces_to_change.add((space[0]),(space[1]-i))
                 if self.board[(space[0]),(space[1]-i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]),(space[1]-i)] == self.player:
                     if self.board[(space[0]),(space[1]-(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[x,y] == 'C':
-                                self.board[x,y] = self.player
-                                self.b = 1
+                        if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[x,y] == 'C':
-                if self.board[x,y] == 'C':
-                    self.board[x,y]= oppcolor
         print 'direct2'
         print self.b
         print self.board[space]
@@ -124,23 +118,15 @@ class Gameplay(object):
                 if (space[1]-i) == -1:
                     break
                 if self.board[(space[0]-i),(space[1]-i)] == oppcolor:
-                    self.board[(space[0]-i),(space[1]-i)] = 'C'
+                    self.pieces_to_change.add((space[0]-i),(space[1]-i))
                 if self.board[(space[0]-i),(space[1]-i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]-i),(space[1]-i)] == self.player:
-                    if self.board[(space[0]-(i-1)),(space[1]-(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.c = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
         print 'direct3'
-        print self.board['5','1']
         print self.c
         print self.board[space]
 
@@ -340,12 +326,6 @@ class Gameplay(object):
         else:
             return 'Sorry, that is not a valid move! Please select another space.'
     
-    # def save_pickle(self,board):
-    #     import pickle
-    #     pickle.dump(self.board, open('save.p', 'wb'))
-
-    # def ____(self):
-    #     return (self.board)
     def updateBoard(self,coordinate):
         print self.pre_direct()
         print self.direct1(self.player,coordinate)
@@ -359,7 +339,7 @@ class Gameplay(object):
         # print self.empty_space(coordinate,self.player)
         #print self.board['5','1']
         self.grid.makeBoard()
-        #print self.board
+        print self.board
         black = 0
         white = 0
         for coordinates, value in self.board.items():
