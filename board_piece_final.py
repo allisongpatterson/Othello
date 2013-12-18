@@ -144,21 +144,14 @@ class Gameplay(object):
                 if (space[0]-i) == -1:
                     break
                 if self.board[(space[0]-i),(space[1])] == oppcolor:
-                    self.board[(space[0]-i),(space[1])] = 'C'
+                    self.pieces_to_change.add((space[0]-i),(space[1]))
                 if self.board[(space[0]-i),(space[1])] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]-i),(space[1])] == self.player:
-                    if self.board[(space[0]-(i-1)),(space[1])] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.d = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
         print 'direct4'
         print self.board['5','1']
         print self.d
@@ -181,22 +174,15 @@ class Gameplay(object):
                 if (space[1]+i) == 8:
                     break
                 if self.board[(space[0]-i),(space[1]+i)] == oppcolor:
-                    self.board[(space[0]-i),(space[1]+i)] = 'C'
+                    self.pieces_to_change.add((space[0]-i),(space[1]+i))
                 if self.board[(space[0]-i),(space[1]+i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]-i),(space[1]+i)] == self.player:
-                    if self.board[(space[0]-(i-1)),(space[1]+(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.e = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
-        print direct5
+        print 'direct5'
         print self.board['5','1']
         print self.e
         print self.board[space]
@@ -214,21 +200,14 @@ class Gameplay(object):
                 if (space[1]+i) == 8:
                     break
                 if self.board[(space[0]),(space[1]+i)] == oppcolor:
-                    self.board[(space[0]),(space[1]+i)] = 'C'
+                    self.pieces_to_change.add((space[0]),(space[1]+i))
                 if self.board[(space[0]),(space[1]+i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]),(space[1]+i)] == self.player:
-                    if self.board[(space[0]),(space[1]+(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.f = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
         print 'direct6'
         print self.board['5','1']
         print self.f
@@ -251,21 +230,14 @@ class Gameplay(object):
                 if (space[1]+i) == 8:
                     break
                 if self.board[(space[0]+i),(space[1]+i)] == oppcolor:
-                    self.board[(space[0]+i),(space[1]+i)] = 'C'
+                    self.pieces_to_change.add((space[0]+i),(space[1]+i))
                 if self.board[(space[0]+i),(space[1]+i)] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]+i),(space[1]+i)] == self.player:
-                    if self.board[(space[0]+(i-1)),(space[1]+(i-1))] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.g = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
         print 'direct7'
         print self.board['5','1']
         print self.g
@@ -284,21 +256,14 @@ class Gameplay(object):
                 if (space[0]+i) == 8:
                     break
                 if self.board[(space[0]+i),(space[1])] == oppcolor:
-                    self.board[(space[0]+i),(space[1])] = 'C'
+                    self.pieces_to_change.add((space[0]+i),(space[1]))
                 if self.board[(space[0]+i),(space[1])] == 'E':
-                    break 
+                    self.pieces_to_change = set()
                 if self.board[(space[0]+i),(space[1])] == self.player:
-                    if self.board[(space[0]+(i-1)),(space[1])] == 'C':
-                        for x, y in self.board:
-                            if self.board[(x),(y)] == 'C':
-                                self.board[(x),(y)] = self.player
-                                self.h = 1
+                    if i >= 2:
+                        self.Change(self.pieces_to_change)
                     else:
                         break
-        for x, y in self.board:
-            if self.board[(x),(y)] == 'C':
-                if self.board[(x),(y)] == 'C':
-                    self.board[(x),(y)]= oppcolor
         print 'direct8'
         print self.board['5','1']
         print self.h
