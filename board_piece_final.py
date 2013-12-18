@@ -22,6 +22,7 @@ class Gameplay(object):
         print 'Initializing.'
 
     def pre_direct(self):
+        self.pieces_to_change = set()
         self.event_space = 0
         self.playernum += 1
         if self.playernum%2 == 0:
@@ -38,12 +39,14 @@ class Gameplay(object):
             print coord
             self.board[coord] = self.player
             self.event_space += 1
+            self.pieces_to_change = set()
 
 
         #return self.player
 
     def direct1(self,player,space):
         '''checks diagonal positive positive (northeast): x+1, y-1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -62,6 +65,7 @@ class Gameplay(object):
                 if self.board[(space[0]+i),(space[1]-i)] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct1'
@@ -69,6 +73,7 @@ class Gameplay(object):
 
     def direct2(self,player,space):
         '''checks upward(north): x+0, y-1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -90,6 +95,7 @@ class Gameplay(object):
                     print '5'
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct2'
@@ -97,6 +103,7 @@ class Gameplay(object):
 
     def direct3(self,player,space):
         '''checks diagonal negative positive (northwest): x-1, y-1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -115,6 +122,7 @@ class Gameplay(object):
                 if self.board[(space[0]-i),(space[1]-i)] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct3'
@@ -123,6 +131,7 @@ class Gameplay(object):
 
     def direct4(self,player,space):
         '''checks left(west): x-1, y+0'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -139,6 +148,7 @@ class Gameplay(object):
                 if self.board[(space[0]-i),(space[1])] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct4'
@@ -146,6 +156,7 @@ class Gameplay(object):
 
     def direct5(self,player,space):
         '''checks diagonal negative negative (southwest): x-1, y+1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -164,6 +175,7 @@ class Gameplay(object):
                 if self.board[(space[0]-i),(space[1]+i)] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct5'
@@ -171,6 +183,7 @@ class Gameplay(object):
 
     def direct6(self,player,space):
         '''checks downward (south): x+0, y+1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -187,6 +200,7 @@ class Gameplay(object):
                 if self.board[(space[0]),(space[1]+i)] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct6'
@@ -194,6 +208,7 @@ class Gameplay(object):
 
     def direct7(self,player,space):
         '''checks diagonal positive negative (southeast): x+1, y+1'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -212,6 +227,7 @@ class Gameplay(object):
                 if self.board[(space[0]+i),(space[1]+i)] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct7'
@@ -219,6 +235,7 @@ class Gameplay(object):
 
     def direct8(self,player,space):
         '''checks right (east): x+1, y+0'''
+        self.pieces_to_change = set()
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -235,6 +252,7 @@ class Gameplay(object):
                 if self.board[(space[0]+i),(space[1])] == self.player:
                     if i >= 2:
                         self.Change(self.pieces_to_change)
+                        break
                     else:
                         break
         print 'direct8'
