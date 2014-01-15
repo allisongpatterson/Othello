@@ -1,5 +1,5 @@
 from Tkinter import*
-from board_piece_final import*
+from board_piece_final_tweaked import*
 
 class Board(Canvas):
     """Makes an 8 by 8 grid. Users can click anywhere on grid to place a 
@@ -17,10 +17,9 @@ class Board(Canvas):
         Canvas.__init__(self, parent, background='forest green')    
         
         self.parent = parent
-        self.parent.title("Othello")
-        self.pack(fill=BOTH, expand=1)
-        self.centerWindow()        
+        self.pack(fill=BOTH, expand=1)     
         self.game=Gameplay(self)
+        self.centerWindow() 
         self.bind("<1>", self.Move)        
 
     def centerWindow(self):
@@ -34,9 +33,9 @@ class Board(Canvas):
         
         x = (self.sw - self.w)/2
         y = (self.sh - self.h)/2
+        self.makeBoard()
         self.parent.geometry('%dx%d+%d+%d' % (self.w, self.h, x, y))
-        button=Button(self, text='Start',font="Helvetica 40",highlightbackground='forest green',background='forest green',bd=5,command=self.makeBoard)
-        button.place(x=11*scaling_factor, y=3.5*scaling_factor)
+       
     def makeBoard(self):
         """Makes a circle on the grid. Coordinate specified by dictionary key
         and color specified by dictionary value."""
