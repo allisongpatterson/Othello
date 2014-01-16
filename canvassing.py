@@ -23,7 +23,7 @@ class Board(Canvas):
         self.bind("<1>", self.Move)        
 
     def centerWindow(self):
-        """Centers the window. Makes a button that starts the game"""
+        """Centers the windowand makes buttons."""
 
         self.w = scaling_factor*8
         self.h = scaling_factor*8
@@ -35,7 +35,7 @@ class Board(Canvas):
         y = (self.sh - self.h)/2
         self.makeBoard()
         self.parent.geometry('%dx%d+%d+%d' % (self.w, self.h, x, y))
-       
+     
     def makeBoard(self):
         """Makes a circle on the grid. Coordinate specified by dictionary key
         and color specified by dictionary value."""
