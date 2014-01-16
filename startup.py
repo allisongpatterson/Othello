@@ -1,5 +1,7 @@
 from swampy.Gui import * 
 import os
+import json
+import urllib2
 
 class Gwindow(): 
 	def __init__(self):
@@ -28,11 +30,21 @@ class Hwindow():
 		hostButton = self.h.bu(text='Host Game', command=self.host)
 		joinButton = self.h.bu(text='Join Game',command=self.join)
 		self.h.mainloop()
+
 	def host(self):
+		data = {
+				'gameName': self.entryField.get()
+		}
+
+		req = urllib2.Request('http://othello.herokuapp.com/createGame')
+		req.add_header('Content-Type', 'application/json')
+
+		response = urllib2.urlopen(req, json.dumps(data))
+		os.system('python board_piece_final_tweaked1.py ' + self.entryField.get() + ' black')
 		self.h.destroy() # close h window
-		print self.entryField.get()
 
 	def join(self):
+		os.system('python board_piece_final_tweaked1.py ' + self.entryField.get() + ' white')
 		self.h.destroy() # close h window
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from Tkinter import*
-from board_piece_final_tweaked import*
+from board_piece_final_tweaked1 import*
+import time
 
 class Board(Canvas):
     """Makes an 8 by 8 grid. Users can click anywhere on grid to place a 
@@ -57,7 +58,12 @@ class Board(Canvas):
             x=(int(event.x/scaling_factor)*scaling_factor)+(scaling_factor/2)
             y=(int(event.y/scaling_factor)*scaling_factor)+(scaling_factor/2)
             self.point = (int(event.x/scaling_factor)),(int(event.y/scaling_factor))
-            self.game.updateBoard(self.point)
+            valid = self.game.updateBoard(self.point)
+            self.parent.update_idletasks()
+            if valid:
+                self.game.waitForUpdate((4,4))
+            self.parent.update_idletasks()
+
   
 
 def main():
