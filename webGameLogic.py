@@ -1,5 +1,5 @@
 from Tkinter import*
-from canvassing1 import*
+from webCanvassing import*
 import sys
 import json
 import urllib2

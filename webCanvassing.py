@@ -1,5 +1,5 @@
 from Tkinter import*
-from board_piece_final_tweaked1 import*
+from webGameLogic import*
 import time
 
 class Board(Canvas):

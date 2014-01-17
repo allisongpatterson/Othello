@@ -1,5 +1,5 @@
 from Tkinter import*
-from board_piece_final_tweaked import*
+from localGameLogic import*
 
 class Board(Canvas):
     """Makes an 8 by 8 grid. Users can click anywhere on grid to place a 

@@ -1,5 +1,5 @@
 from Tkinter import*
-from canvassing import*
+from localCanvassing import*
 
 
 class Gameplay(object):
