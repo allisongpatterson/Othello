@@ -25,27 +25,30 @@ class Hwindow():
 	def __init__(self):
 		self.h = Gui() # make h window
 		self.h.title('Othello!')
-		self.entryField = self.h.en(text='Game name...')
+		self.h.la(text='Game Name (no spaces)')
+		self.entryField = self.h.en()
 		self.h.gr(cols=2)
 		hostButton = self.h.bu(text='Host Game', command=self.host)
 		joinButton = self.h.bu(text='Join Game',command=self.join)
 		self.h.mainloop()
 
 	def host(self):
+		name = self.entryField.get()
 		data = {
-				'gameName': self.entryField.get()
+				'gameName': name
 		}
 
 		req = urllib2.Request('http://othello.herokuapp.com/createGame')
 		req.add_header('Content-Type', 'application/json')
 
 		response = urllib2.urlopen(req, json.dumps(data))
-		os.system('python board_piece_final_tweaked1.py ' + self.entryField.get() + ' black')
 		self.h.destroy() # close h window
+		os.system('python board_piece_final_tweaked1.py ' + name + ' black')
 
 	def join(self):
-		os.system('python board_piece_final_tweaked1.py ' + self.entryField.get() + ' white')
+		name = self.entryField.get()
 		self.h.destroy() # close h window
-
+		os.system('python board_piece_final_tweaked1.py ' + name + ' white')
+ 
 if __name__ == "__main__":
     Gwindow()
