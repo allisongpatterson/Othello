@@ -12,7 +12,12 @@ class Gameplay(object):
         self.gameName = sys.argv[1]
         self.playerColor = sys.argv[2]
         self.grid=grid
-        self.grid.parent.title("Othello! (black's turn)")
+        status = self.getCurrentStatus()
+        if status[1] == self.playerColor:
+            who = 'you'
+        else:
+            who = 'them'
+        self.grid.parent.title("Othello! (" + status[1] +"'s turn) (" + who +")")
         self.pieces_to_change = set()
         self.board = {}
         for i in range(8):
@@ -39,6 +44,7 @@ class Gameplay(object):
                 self.board[status[0][0],status[0][1]]='white' # fills last player's space w/ proper color
             self.playernum = 0
             self.player = 'black'
+
         elif status[1] == 'white':
             print 'update white'
             self.playernum = 0
@@ -71,10 +77,8 @@ class Gameplay(object):
             self.playernum += 1
             if self.playernum%2 == 1:
                 self.player = 'white'
-                self.grid.parent.title("Othello! (white's turn)")
             if self.playernum%2 == 0:
                 self.player = 'black'
-                self.grid.parent.title("Othello! (black's turn)")
             if self.player == 'black':
                 self.oppcolor = 'white'
             else:
@@ -91,6 +95,7 @@ class Gameplay(object):
         print self.player
 
     def checkDirect(self, player, space):
+        self.event_space = 0
         """checks all 8 directions surrounding square."""
         if self.player == 'black':
             oppcolor = 'white'
@@ -141,9 +146,15 @@ class Gameplay(object):
 
     def waitForUpdate(self,space):
         while(True):
-            time.sleep(1)
+            time.sleep(.1)
+            self.grid.update()
             print 'wait'
             status = self.getCurrentStatus()
+            if status[1] == self.playerColor:
+                who = 'you'
+            else:
+                who = 'them'
+            self.grid.parent.title("Othello! (" + status[1] +"'s turn) (" + who +")")
             if status[1] == self.playerColor and space != status[0]:
                 self.updateFromServer()
                 self.grid.makeBoard()
