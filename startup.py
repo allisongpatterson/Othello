@@ -4,6 +4,7 @@ import json
 import urllib2
 
 class Gwindow(): 
+	"""Creates local/internet menu."""
 	def __init__(self):
 		self.g = Gui() # make g window
 		self.g.title('Othello!')
@@ -13,15 +14,18 @@ class Gwindow():
 		self.g.mainloop()
 
 	def local(self):
+		"""Creates a game w/ 2 players on 1 computer."""
 		self.g.destroy() # close g window
 		os.system('python board_piece_final_tweaked.py') # start local game
 
 	def internet(self):
+		"""Leads to next menu."""
 		self.g.destroy() # close g window
 		Hwindow()
 
 
 class Hwindow():
+	"""Creates host/join menu."""
 	def __init__(self):
 		self.h = Gui() # make h window
 		self.h.title('Othello!')
@@ -33,6 +37,7 @@ class Hwindow():
 		self.h.mainloop()
 
 	def host(self):
+		"""Creates a game w/ 2 players and 2 computers."""
 		name = self.entryField.get()
 		data = {
 				'gameName': name
@@ -46,6 +51,8 @@ class Hwindow():
 		os.system('python board_piece_final_tweaked1.py ' + name + ' black')
 
 	def join(self):
+		"""Joins an existing game w/ 2 players and 2 computers."""
+
 		name = self.entryField.get()
 		self.h.destroy() # close h window
 		os.system('python board_piece_final_tweaked1.py ' + name + ' white')

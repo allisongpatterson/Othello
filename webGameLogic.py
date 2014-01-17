@@ -30,32 +30,30 @@ class Gameplay(object):
         self.event_space = 0
         self.pre_direct()
         self.updateFromServer()
-        print self.board
 
     def updateFromServer(self):
+        """Gets info from server and updates the display."""
+
         status = self.getCurrentStatus()
         if status[1] == 'black':
-            print 'update black'
             self.player = 'white'
             self.playernum = 1
             if status[0][0] != 4 or status[0][1] != 4: # make sure last move was not on 4,4 (starting square)
-                print 'yes'
                 self.checkDirect('white', (status[0][0],status[0][1])) # displays last move's flips
                 self.board[status[0][0],status[0][1]]='white' # fills last player's space w/ proper color
             self.playernum = 0
             self.player = 'black'
 
         elif status[1] == 'white':
-            print 'update white'
             self.playernum = 0
             self.player = 'black'
             self.checkDirect('black', (status[0][0],status[0][1])) # displays last move's flips
             self.board[status[0][0],status[0][1]]='black' # fills last player's space w/ proper color
             self.playernum = 1
             self.player = 'white'
-        print self.board
 
-    def getCurrentStatus(self): # talk to server
+    def getCurrentStatus(self):
+        """Gets data from server."""
         req = urllib2.Request('http://othello.herokuapp.com/' + self.gameName + '/currentStatus')
         req.add_header('Content-Type', 'application/json')
 
@@ -63,15 +61,16 @@ class Gameplay(object):
         data = json.load(response)
         return (self.coordConvertToTup(data['lastMove']), data['currentPlayer']) # gets tuple coordinates and current player from server
 
-    def coordConvertToTup(self, coord): # covert the sring coordinates to a tuple
+    def coordConvertToTup(self, coord):
+        """coverts the string coordinates from the server to a tuple."""
         return (int(coord[0]),int(coord[1]))
 
-    def coordConvertToStr(self, coord): # convert the tuple coordinates to a string
+    def coordConvertToStr(self, coord):
+        """converts the tuple coordinates to a string for the server."""
         return str(coord[0]) + str(coord[1])
 
     def pre_direct(self):
         self.pieces_to_change = set()
-        print 'event_space' + str(self.event_space)
         if self.event_space != 0:
             self.event_space = 0
             self.playernum += 1
@@ -85,18 +84,14 @@ class Gameplay(object):
                 self.oppcolor = 'black'
 
     def Change(self, pieces):
-        print 'pieces' + str(pieces)
         for coord in pieces:
-            print coord
             self.board[coord] = self.player
             self.event_space += 1
             self.pieces_to_change = set()
 
-        print self.player
-
     def checkDirect(self, player, space):
-        self.event_space = 0
         """checks all 8 directions surrounding square."""
+        self.event_space = 0
         if self.player == 'black':
             oppcolor = 'white'
         else:
@@ -123,10 +118,8 @@ class Gameplay(object):
                                 break
                             else:
                                 break
-        print self.board[space]
 
     def fill_event(self,space):
-        print 'fill'
         if self.event_space >= 1:
             self.sendMoveToServer(space)
             self.board[space] = self.player
@@ -134,6 +127,7 @@ class Gameplay(object):
         return False
 
     def sendMoveToServer(self,space):
+        """Pushes data to server."""
         data = {
                 'playerColor': self.playerColor,
                 'move' : self.coordConvertToStr(space)
@@ -145,10 +139,11 @@ class Gameplay(object):
         response = urllib2.urlopen(req, json.dumps(data))
 
     def waitForUpdate(self,space):
+        """Prevents player from making move while it's the other player's turn."""
         while(True):
             time.sleep(.1)
             self.grid.update()
-            print 'wait'
+            print 'please wait...'
             status = self.getCurrentStatus()
             if status[1] == self.playerColor:
                 who = 'you'
@@ -162,14 +157,11 @@ class Gameplay(object):
 
 
     def updateBoard(self,coordinate):
-        print 'self.player' + self.playerColor
-        print 'self.player' + self.player
         if self.playerColor == self.player:
             self.checkDirect(self.player,coordinate)
             valid = self.fill_event(coordinate)
             self.pre_direct()
             self.grid.makeBoard()
-            print self.board
             black = 0
             white = 0
             for coordinates, value in self.board.items():

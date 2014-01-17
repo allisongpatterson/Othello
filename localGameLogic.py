@@ -20,11 +20,9 @@ class Gameplay(object):
         self.playernum = 0
         self.player = 'black'
         self.event_space = 0
-        print self.board
 
     def pre_direct(self):
         self.pieces_to_change = set()
-        print 'event_space' + str(self.event_space)
         if self.event_space != 0:
             self.event_space = 0
             self.playernum += 1
@@ -41,12 +39,9 @@ class Gameplay(object):
 
     def Change(self, pieces):
         for coord in pieces:
-            print coord
             self.board[coord] = self.player
             self.event_space += 1
             self.pieces_to_change = set()
-
-        print self.player
 
     def checkDirect(self, player, space):
         """checks all 8 directions surrounding square."""
@@ -76,10 +71,8 @@ class Gameplay(object):
                                 break
                             else:
                                 break
-        print self.board[space]
 
     def fill_event(self,space):
-        print 'fill'
         if self.event_space >= 1:
             self.board[space] = self.player
 
@@ -88,7 +81,6 @@ class Gameplay(object):
         self.fill_event(coordinate)
         self.pre_direct()
         self.grid.makeBoard()
-        print self.board
         black = 0
         white = 0
         for coordinates, value in self.board.items():
